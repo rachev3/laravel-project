@@ -18,15 +18,17 @@
 3. Инсталирай зависимости (ако имаш Composer/Node):
     - `composer install`
     - `npm install && npm run build`
-4. Миграции и seed:
+4. Storage link (за качени файлове/постери):
+    - `php artisan storage:link`
+5. Миграции и seed:
     - `php artisan migrate --seed`
-5. Старт:
+6. Старт:
     - `php artisan serve`
 
-## План
+## Тестови акаунт
 
-Виж `PROJECT_PLAN.md`.
+-   Admin: `test@example.com` / `password`
 
-## Лиценз
+## Admin панел
 
-Виж `LICENSE` (MIT).
+-   `/admin` (достъпен само за admin потребители)
