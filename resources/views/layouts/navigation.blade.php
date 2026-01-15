@@ -18,6 +18,11 @@
                     <x-nav-link :href="route('movies.index')" :active="request()->routeIs('movies.*')">
                         {{ __('Movies') }}
                     </x-nav-link>
+                    @can('admin')
+                        <x-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    @endcan
                 </div>
             </div>
 
@@ -76,6 +81,11 @@
             <x-responsive-nav-link :href="route('movies.index')" :active="request()->routeIs('movies.*')">
                 {{ __('Movies') }}
             </x-responsive-nav-link>
+            @can('admin')
+                <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.*')">
+                    {{ __('Admin') }}
+                </x-responsive-nav-link>
+            @endcan
         </div>
 
         <!-- Responsive Settings Options -->

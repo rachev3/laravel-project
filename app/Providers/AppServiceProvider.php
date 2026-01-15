@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Movie;
 use App\Models\Review;
+use App\Models\User;
 use App\Policies\MoviePolicy;
 use App\Policies\ReviewPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -24,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Gate::define('admin', fn (User $user) => (bool) $user->is_admin);
+
         Gate::policy(Movie::class, MoviePolicy::class);
         Gate::policy(Review::class, ReviewPolicy::class);
     }
