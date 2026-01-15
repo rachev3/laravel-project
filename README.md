@@ -12,22 +12,29 @@
 
 ## Стартиране (локално)
 
-1. Копирай `.env.example` → `.env` и настрой DB връзката.
+1. Копирай `.env.example` → `.env` и настрой DB връзката (по подразбиране може да ползваш SQLite `database/database.sqlite`).
 2. Генерирай ключ:
     - `php artisan key:generate`
 3. Инсталирай зависимости (ако имаш Composer/Node):
     - `composer install`
-    - `npm install && npm run build`
+    - `npm install`
 4. Storage link (за качени файлове/постери):
     - `php artisan storage:link`
 5. Миграции и seed:
     - `php artisan migrate --seed`
 6. Старт:
     - `php artisan serve`
+    - (за dev стилове) `npm run dev` **или** `npm run build` (ако няма да разработваш)
+
+Алтернатива (стартира server + queue + vite наведнъж):
+
+-   `composer run dev`
 
 ## Тестови акаунт
 
 -   Admin: `test@example.com` / `password`
+-   User: `maria@example.com` / `password`
+-   User: `ivan@example.com` / `password`
 
 ## Admin панел
 
