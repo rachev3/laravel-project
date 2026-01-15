@@ -30,6 +30,10 @@
 
 -   `composer run dev`
 
+## Структура на проекта
+
+-   Виж: [PROJECT_STRUCTURE.md](PROJECT_STRUCTURE.md)
+
 ## Тестови акаунт
 
 -   Admin: `test@example.com` / `password`
