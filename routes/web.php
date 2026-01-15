@@ -15,10 +15,6 @@ Route::get('/', function () {
     return app(HomeController::class)->index();
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
     Route::post('/movies/{movie}/poster', [MoviePosterController::class, 'update'])
         ->middleware('can:updatePoster,movie')
