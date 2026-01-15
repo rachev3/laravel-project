@@ -45,13 +45,30 @@
                 @forelse ($movies as $movie)
                     <a href="{{ route('movies.show', $movie) }}" class="block rounded border bg-white p-4 hover:border-slate-400">
                         <div class="flex items-start justify-between gap-4">
-                            <div>
-                                <div class="font-semibold">{{ $movie->title }}</div>
-                                <div class="text-sm text-slate-600">
-                                    @if ($movie->year)
-                                        {{ $movie->year }} ·
+                            <div class="flex items-start gap-4">
+                                <div class="h-20 w-14 shrink-0 overflow-hidden rounded border bg-slate-50">
+                                    @if ($movie->poster_path)
+                                        <img
+                                            src="{{ asset('storage/'.$movie->poster_path) }}"
+                                            alt="Постер: {{ $movie->title }}"
+                                            class="h-full w-full object-cover"
+                                            loading="lazy"
+                                        />
+                                    @else
+                                        <div class="flex h-full w-full items-center justify-center text-xs text-slate-400">
+                                            Няма
+                                        </div>
                                     @endif
-                                    {{ $movie->genres->pluck('name')->join(', ') ?: 'Без жанр' }}
+                                </div>
+
+                                <div>
+                                    <div class="font-semibold">{{ $movie->title }}</div>
+                                    <div class="text-sm text-slate-600">
+                                        @if ($movie->year)
+                                            {{ $movie->year }} ·
+                                        @endif
+                                        {{ $movie->genres->pluck('name')->join(', ') ?: 'Без жанр' }}
+                                    </div>
                                 </div>
                             </div>
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\MoviePosterController;
 use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,10 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/movies', [MovieController::class, 'index'])->name('movies.index');
     Route::get('/movies/{movie}', [MovieController::class, 'show'])->name('movies.show');
+
+    Route::post('/movies/{movie}/poster', [MoviePosterController::class, 'update'])
+        ->middleware('can:updatePoster,movie')
+        ->name('movies.poster.update');
 
     Route::post('/movies/{movie}/reviews', [ReviewController::class, 'store'])->name('movies.reviews.store');
     Route::match(['put', 'patch'], '/movies/{movie}/reviews/{review}', [ReviewController::class, 'update'])->name('movies.reviews.update');

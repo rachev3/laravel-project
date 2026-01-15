@@ -27,11 +27,79 @@
                 </div>
             </div>
 
-            @if ($movie->description)
-                <div class="mt-6 rounded border bg-white p-4">
-                    <div class="text-sm text-slate-700 whitespace-pre-line">{{ $movie->description }}</div>
+            <div class="mt-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+                <div class="md:col-span-1">
+                    <div class="rounded border bg-white p-4">
+                        <div class="aspect-[2/3] overflow-hidden rounded border bg-slate-50">
+                            @if ($movie->poster_path)
+                                <img
+                                    src="{{ asset('storage/'.$movie->poster_path) }}"
+                                    alt="Постер: {{ $movie->title }}"
+                                    class="h-full w-full object-cover"
+                                    loading="lazy"
+                                />
+                            @else
+                                <div class="flex h-full w-full items-center justify-center text-sm text-slate-400">
+                                    Няма постер
+                                </div>
+                            @endif
+                        </div>
+
+                        @if (session('status'))
+                            <div class="mt-4 rounded border border-green-200 bg-green-50 px-4 py-3 text-green-800">
+                                {{ session('status') }}
+                            </div>
+                        @endif
+
+                        @if ($errors->has('poster'))
+                            <div class="mt-4 rounded border border-red-200 bg-red-50 px-4 py-3 text-red-800">
+                                <div class="font-semibold">Проблем с постера:</div>
+                                <ul class="mt-1 list-disc pl-5">
+                                    @foreach ($errors->get('poster') as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        @can('updatePoster', $movie)
+                            <form
+                                method="POST"
+                                action="{{ route('movies.poster.update', $movie) }}"
+                                enctype="multipart/form-data"
+                                class="mt-4 space-y-2"
+                            >
+                                @csrf
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700">Качи/смени постер</label>
+                                    <input
+                                        type="file"
+                                        name="poster"
+                                        accept=".jpg,.jpeg,.png,.webp,image/*"
+                                        class="mt-1 w-full rounded border-slate-300"
+                                        required
+                                    />
+                                    <div class="mt-1 text-xs text-slate-500">JPG/PNG/WEBP до 4MB</div>
+                                </div>
+
+                                <button class="rounded bg-slate-900 px-4 py-2 text-white">Запази</button>
+                            </form>
+                        @endcan
+                    </div>
                 </div>
-            @endif
+
+                <div class="md:col-span-2">
+                    @if ($movie->description)
+                        <div class="rounded border bg-white p-4">
+                            <div class="text-sm text-slate-700 whitespace-pre-line">{{ $movie->description }}</div>
+                        </div>
+                    @else
+                        <div class="rounded border bg-white p-4 text-slate-600">
+                            Няма описание.
+                        </div>
+                    @endif
+                </div>
+            </div>
 
             <h2 class="mt-8 text-xl font-semibold">Твоето ревю</h2>
 
